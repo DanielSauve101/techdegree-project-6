@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Minerals
+from .models import Mineral
 
-admin.site.register(Minerals)
+admin.site.register(Mineral)

@@ -1,12 +1,12 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 
-from .models import Minerals
+from .models import Mineral
 
 
 def mineral_list(request):
     """View to show the mineral list using Paginator to limit 45 per page"""
-    mineral_list = Minerals.objects.all()
+    mineral_list = Mineral.objects.all()
     paginator = Paginator(mineral_list, 45)
     page = request.GET.get('page')
     minerals = paginator.get_page(page)
@@ -14,5 +14,5 @@ def mineral_list(request):
 
 
 def mineral_detail(request, pk):
-    mineral = get_object_or_404(Minerals, pk=pk)
+    mineral = get_object_or_404(Mineral, pk=pk)
     return render(request, 'rocks/mineral_detail.html', {'mineral': mineral})

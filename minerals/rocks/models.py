@@ -3,7 +3,7 @@ from django.db import models, migrations
 # Create your models here.
 
 
-class Minerals(models.Model):
+class Mineral(models.Model):
     name = models.CharField(max_length=100)
     image_filename = models.TextField()
     image_caption = models.TextField(blank=True, default='')
@@ -23,6 +23,9 @@ class Minerals(models.Model):
     refractive_index = models.TextField(blank=True, default='')
     crystal_habit = models.TextField(blank=True, default='')
     specific_gravity = models.TextField(blank=True, default='')
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return self.name
