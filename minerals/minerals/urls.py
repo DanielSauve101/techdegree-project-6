@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, re_path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from rocks import views
 
@@ -22,4 +24,4 @@ urlpatterns = [
     path('', views.mineral_list, name='home'),
     re_path(r'^minerals/(?P<pk>\d+)/$', views.mineral_detail, name='detail'),
     path('admin/', admin.site.urls),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

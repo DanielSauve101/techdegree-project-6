@@ -1,5 +1,4 @@
 {% extends 'layout.html' %}
-{% load rocks_extras %}
 
 {% block title %}Mineral Detail{% endblock %}
 
@@ -19,7 +18,7 @@
   <div class="grid-100 mineral__container">
     <h1 class="mineral__name">{{ mineral.name }}</h1>
     <div class="mineral__image-bg">
-      <img src="/static/rocks/images/{{ mineral.image_filename }}" alt="">
+      <img src="{{ STATIC_URL }}rocks/images/{{ mineral.image_filename }}" alt="">
       <p class="mineral__caption">{{ mineral.image_caption }}</p>
     </div>
     <div class="mineral__table-container">
@@ -27,14 +26,14 @@
         <tbody>
           {% if mineral.category %}
           <tr>
-            <td class="mineral__category">{% get_verbose_name mineral 'strunz_classification' %}</td>
+            <td class="mineral__category">Category</td>
             <td>{{ mineral.category }}</td>
           </tr>
           {% endif %}
           {% if mineral.formula %}
           <tr>
             <td class="mineral__category">Formula</td>
-            <td class="mineral__formula">{{ mineral.formula }}</td>
+            <td class="mineral__formula">{{ mineral.formula|safe }}</td>
           </tr>
           {% endif %}
           {% if mineral.strunz_classification %}
