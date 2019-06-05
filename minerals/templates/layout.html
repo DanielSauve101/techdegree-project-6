@@ -1,11 +1,12 @@
 {% load static from staticfiles %}
+{% load rocks_extras %}
 
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>Wacky Minerals</title>
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +17,8 @@
   <body>
   {% block content%}{% endblock %}
   <div class="minerals__random">
-    <a class="minerals__anchor" href="#">Show Random Mineral</a>
+    {% random_mineral as rand %}
+      <a class="minerals__anchor" href="{% url 'detail' pk=rand %}">Show Random Mineral</a>
   </div>
   </body>
 </html>
