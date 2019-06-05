@@ -14,5 +14,5 @@ def mineral_list(request):
 
 
 def mineral_detail(request, pk):
-    mineral = get_object_or_404(Mineral, pk=pk)
-    return render(request, 'rocks/mineral_detail.html', {'mineral': mineral})
+    mineral = Mineral.objects.filter(pk=pk).values()
+    return render(request, 'rocks/mineral_detail.html', {'mineral_dict': mineral})
