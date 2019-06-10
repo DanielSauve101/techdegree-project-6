@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
-from django.shortcuts import get_list_or_404, render
+from django.http import Http404
+from django.shortcuts import render
 
 from .models import Mineral
 
@@ -14,17 +15,21 @@ def mineral_list(request):
 
 
 def mineral_detail(request, pk):
-    mineral = Mineral.objects.filter(pk=pk).values()
-    important_details_dict = {}
-    other_details_dict = {}
-    for elements in mineral:
-        for key, value in elements.items():
-            if key != 'id':
-                if (key == 'name' or key == 'image_filename' or key == 'image_caption'):
-                    important_details_dict.update({key: value})
-                else:
-                    if value:
-                        other_details_dict.update({key: value})
-    return render(request, 'rocks/mineral_detail.html',
-                  {'important': important_details_dict,
-                   'other': other_details_dict})
+    """View to show detail of mineral and to show 404 if does not exist"""
+    if Mineral.objects.filter(pk=pk).exists():
+        mineral = Mineral.objects.filter(pk=pk).values()
+        important_details_dict = {}
+        other_details_dict = {}
+        for elements in mineral:
+            for key, value in elements.items():
+                if key != 'id':
+                    if (key == 'name' or key == 'image_filename' or key == 'image_caption'):
+                        important_details_dict.update({key: value})
+                    else:
+                        if value:
+                            other_details_dict.update({key: value})
+        return render(request, 'rocks/mineral_detail.html',
+                      {'important': important_details_dict,
+                       'other': other_details_dict})
+    else:
+        raise Http404('Mineral does not exist.')
