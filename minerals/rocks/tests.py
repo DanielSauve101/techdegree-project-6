@@ -38,7 +38,6 @@ class MineralViewsTests(TestCase):
     def test_mineral_detail_view(self):
         resp = self.client.get(reverse('detail',
                                        kwargs={'pk': self.mineral.pk}))
-        self.assertEqual(resp.status_code, 200)
         important_dict = {'name': 'A', 'image_filename': 'mineralx.jpg',
                           'image_caption': 'this is the mineral x'}
         other_dict = {'category': 'xyz',
@@ -57,5 +56,7 @@ class MineralViewsTests(TestCase):
                       'refractive_index': 'x\y03c9 = 1.597',
                       'crystal_habit': 'Forms crust-like aggregates',
                       'specific_gravity': '34.20 - 18.22'}
+        self.assertEqual(resp.status_code, 200)
         self.assertEqual(important_dict, resp.context['important'])
         self.assertEqual(other_dict, resp.context['other'])
+        self.assertTemplateUsed(resp, 'rocks/mineral_detail.html')

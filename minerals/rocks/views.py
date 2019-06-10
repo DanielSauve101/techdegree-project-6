@@ -23,7 +23,8 @@ def mineral_detail(request, pk):
         for elements in mineral:
             for key, value in elements.items():
                 if key != 'id':
-                    if (key == 'name' or key == 'image_filename' or key == 'image_caption'):
+                    if (key == 'name' or key == 'image_filename' or
+                            key == 'image_caption'):
                         important_details_dict.update({key: value})
                     else:
                         if value:
