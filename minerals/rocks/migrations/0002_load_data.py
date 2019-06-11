@@ -4,6 +4,7 @@ import json
 
 
 def load_data(apps, schema_editor):
+    """Function loads the initial data from the json file into the database"""
     Mineral = apps.get_model('rocks', 'Minerals')
     with open('data/minerals.json', encoding='utf-8') as file:
         minerals = json.load(file)
