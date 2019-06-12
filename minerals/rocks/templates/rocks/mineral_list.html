@@ -22,7 +22,7 @@
     <ul class="minerals__container">
       {% for mineral in minerals %}
       <li class="minerals__item">
-        <a class="minerals__anchor" href="{% url 'detail' pk=mineral.pk %}">{{ mineral.name|truncatewords:1 }}</a>
+        <a class="minerals__anchor mineral_name" href="{% url 'detail' pk=mineral.pk %}">{{ mineral.name|truncatewords:1 }}</a>
       </li>
       {% endfor %}
     </ul>
