@@ -18,6 +18,7 @@ def mineral_detail(request, pk):
     """View to show detail of mineral and to show 404 if does not exist"""
     if Mineral.objects.filter(pk=pk).exists():
         mineral = Mineral.objects.filter(pk=pk).values()
+        main_details_dict = {}
         important_details_dict = {}
         other_details_dict = {}
         for elements in mineral:
@@ -25,12 +26,15 @@ def mineral_detail(request, pk):
                 if key != 'id':
                     if (key == 'name' or key == 'image_filename' or
                             key == 'image_caption'):
+                        main_details_dict.update({key: value})
+                    elif (key == 'category' or key == 'group'):
                         important_details_dict.update({key: value})
                     else:
                         if value:
                             other_details_dict.update({key: value})
         return render(request, 'rocks/mineral_detail.html',
-                      {'important': important_details_dict,
+                      {'main': main_details_dict,
+                       'important': important_details_dict,
                        'other': other_details_dict})
     else:
         raise Http404('Mineral does not exist.')
