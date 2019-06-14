@@ -5,7 +5,7 @@ import json
 
 def load_data(apps, schema_editor):
     """Function loads the initial data from the json file into the database"""
-    Mineral = apps.get_model('rocks', 'Minerals')
+    Mineral = apps.get_model('rocks', 'Mineral')
     with open('data/minerals.json', encoding='utf-8') as file:
         minerals = json.load(file)
         for mineral in minerals:
@@ -28,7 +28,8 @@ def load_data(apps, schema_editor):
                 optical_properties=mineral.get('optical_properties', ''),
                 refractive_index=mineral.get('refractive_index', ''),
                 crystal_habit=mineral.get('crystal_habit', ''),
-                specific_gravity=mineral.get('specific_gravity', '')
+                specific_gravity=mineral.get('specific_gravity', ''),
+                group=mineral.get('group', '')
             )
 
 
